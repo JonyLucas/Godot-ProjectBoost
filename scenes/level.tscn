@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://cokk74ynk0jrt"]
+
+[ext_resource type="PackedScene" uid="uid://cfs0uljaq3xta" path="res://scenes/player.tscn" id="1_oqaua"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vf4jp"]
+albedo_color = Color(0.64, 0.356693, 0.1088, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tmicj"]
+albedo_color = Color(0.243243, 0.419857, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jkdbq"]
+albedo_color = Color(0.15088, 0.46, 0.0184, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_683kb"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_r34yy"]
+sky_material = SubResource("ProceduralSkyMaterial_683kb")
+
+[sub_resource type="Environment" id="Environment_vy2di"]
+background_mode = 2
+sky = SubResource("Sky_r34yy")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Level" type="Node3D"]
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
+use_collision = true
+size = Vector3(40, 8, 5)
+material = SubResource("StandardMaterial3D_vf4jp")
+
+[node name="LaunchPad" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 0)
+use_collision = true
+size = Vector3(2, 1, 2)
+material = SubResource("StandardMaterial3D_tmicj")
+
+[node name="LandingPad" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 0)
+use_collision = true
+size = Vector3(2, 1, 2)
+material = SubResource("StandardMaterial3D_jkdbq")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vy2di")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_oqaua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1.5, 0)
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+linear_damp = 1.0
+angular_damp = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 4, 10)
+fov = 72.2
+size = 6.385
