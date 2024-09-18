@@ -7,6 +7,13 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6mx4f"]
 
 [node name="Player" type="RigidBody3D"]
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+contact_monitor = true
+max_contacts_reported = 5
+linear_damp = 1.0
+angular_damp = 3.0
 script = ExtResource("1_kv2k0")
 boost_speed = 1000.0
 turn_speed = 50.0
@@ -16,3 +23,5 @@ mesh = SubResource("CylinderMesh_3mdbp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_6mx4f")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
